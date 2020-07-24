@@ -54,12 +54,19 @@
 		</dependency>
 		
 		<!-- [START gae_java11_jetty_main_dependency] -->
-    <dependency>
+   <!--  <dependency>
       <groupId>com.example.appengine.demo</groupId>
       <artifactId>simple-jetty-main</artifactId>
       <version>1</version>
       <scope>provided</scope>
-    </dependency>
+    </dependency> -->
+    <!-- https://mvnrepository.com/artifact/org.mortbay.jetty/jetty -->
+<dependency>
+    <groupId>org.mortbay.jetty</groupId>
+    <artifactId>jetty</artifactId>
+<!--     <version>7.0.0.pre5</version> -->
+</dependency>
+    
     <!-- [END gae_java11_jetty_main_dependency] -->
     
 	</dependencies>
