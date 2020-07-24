@@ -19,6 +19,7 @@
 		<java.version>11</java.version>
 		<maven.compiler.source>11</maven.compiler.source>
   		<maven.compiler.target>11</maven.compiler.target>
+  		<failOnMissingWebXml>false</failOnMissingWebXml>
 	</properties>
 
 	<dependencies>
@@ -52,14 +53,57 @@
 			<scope>provided</scope>
 		</dependency>
 		
+		<!-- [START gae_java11_jetty_main_dependency] -->
+    <dependency>
+      <groupId>com.example.appengine.demo</groupId>
+      <artifactId>simple-jetty-main</artifactId>
+      <version>1</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- [END gae_java11_jetty_main_dependency] -->
+    
 	</dependencies>
 
 	<build>
+	<finalName>helloworld</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
+			<plugin>
+		        <groupId>com.google.cloud.tools</groupId>
+		        <artifactId>appengine-maven-plugin</artifactId>
+		        <version>2.3.0</version>
+		        <configuration>
+		          <projectId>GCLOUD_CONFIG</projectId>
+		          <version>helloworld</version>
+		        </configuration>
+		      </plugin>
+		      
+		      <!-- [START gae_java11_build] -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+<!--         <version>3.1.2</version> -->
+        <executions>
+          <execution>
+            <id>copy</id>
+            <phase>prepare-package</phase>
+      	      <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>
+                ${project.build.directory}/appengine-staging
+              </outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- [END gae_java11_build] -->
+      
 		</plugins>
 	</build>
 
